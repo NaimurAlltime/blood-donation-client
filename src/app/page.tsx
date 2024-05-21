@@ -4,7 +4,7 @@ const HomePage = () => {
   return (
     <>
       <h1>Homepage</h1>
-      <Button variant="contained">Contained</Button>
+      <Button>Contained</Button>
     </>
   );
 };
