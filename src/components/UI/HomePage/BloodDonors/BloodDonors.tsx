@@ -112,13 +112,33 @@ const BloodDonors: React.FC = () => {
         backgroundColor: "#f5f5f5",
         padding: 4,
         borderRadius: 2,
-        boxShadow: 3,
+        // boxShadow: 3,
       }}
     >
       <Box my={4}>
-        <Typography variant="h4" component="h1" gutterBottom align="center">
-          Search Blood Donors
-        </Typography>
+        <Box textAlign={"center"}>
+          <Typography
+            component="p"
+            fontSize={28}
+            fontWeight={500}
+            color="#1586FD"
+            sx={{ mb: 1.3 }}
+          >
+            Search Blood Donors
+          </Typography>
+          <Typography
+            component="p"
+            fontSize={18}
+            fontWeight={400}
+            sx={{ mb: 2 }}
+          >
+            This section allows users to search and filter for blood donors by
+            name, blood type, location, and availability status.
+            <br />
+            Easily find the most suitable donors using the search field and
+            filters provided.
+          </Typography>
+        </Box>
 
         <Stack
           direction="row"

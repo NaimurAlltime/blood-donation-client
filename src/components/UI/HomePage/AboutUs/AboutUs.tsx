@@ -90,8 +90,8 @@ const AboutUs = () => {
         <Box textAlign={"center"}>
           <Typography
             component="p"
-            fontSize={24}
-            fontWeight={400}
+            fontSize={28}
+            fontWeight={500}
             color="#1586FD"
             sx={{ mb: 1.3 }}
           >
