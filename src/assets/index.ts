@@ -6,7 +6,7 @@ const assets = {
     logo_white: require("./logo/logo-white.png"),
   },
   svgs: {
-    // logo1: require("./svgs/logo.svg"),
+    Blood_donation: require("./image/blood-donation.svg"),
   },
 };
 
