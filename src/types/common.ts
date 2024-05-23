@@ -1,3 +1,5 @@
+import { USER_ROLE } from "@/contants/role";
+
 export const BloodType = [
   "A_POSITIVE",
   "A_NEGATIVE",
@@ -10,3 +12,5 @@ export const BloodType = [
 ];
 
 export const donateBlood = ["Yes", "No"];
+
+export type UserRole = keyof typeof USER_ROLE;

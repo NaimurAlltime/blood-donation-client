@@ -3,9 +3,15 @@ import assets from "@/assets";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import React from "react";
 
 const Navbar = () => {
+  const AuthButton = dynamic(
+    () => import("@/components/UI/AuthButton/AuthButton"),
+    { ssr: false }
+  );
+
   return (
     <Container>
       <Stack
@@ -33,9 +39,7 @@ const Navbar = () => {
           <Typography>My Profile</Typography>
         </Stack>
 
-        <Button component={Link} href="/login">
-          Login
-        </Button>
+        <AuthButton />
       </Stack>
     </Container>
   );
