@@ -1,4 +1,3 @@
-// components/CampaignGallery.tsx
 import React from "react";
 import { Container, Grid, Box, Typography } from "@mui/material";
 import Image from "next/image";
