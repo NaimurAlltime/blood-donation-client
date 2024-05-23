@@ -6,9 +6,9 @@ import {
 } from "@/utils/local-storage";
 import { decodedToken } from "@/utils/jwt";
 
-export const storeUserInfo = ({ accessToken }: { accessToken: string }) => {
+export const storeUserInfo = ({ token }: { token: string }) => {
   //   console.log(accessToken);
-  return setToLocalStorage(authKey, accessToken);
+  return setToLocalStorage(authKey, token);
 };
 
 export const getUserInfo = () => {

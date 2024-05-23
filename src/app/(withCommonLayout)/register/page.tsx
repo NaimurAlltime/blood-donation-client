@@ -8,7 +8,6 @@ import {
   Select,
   SelectChangeEvent,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
@@ -26,25 +25,9 @@ import REInput from "@/components/Forms/REInput";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-
-export enum BloodType {
-  A_POSITIVE = "A+",
-  A_NEGATIVE = "A-",
-  B_POSITIVE = "B+",
-  B_NEGATIVE = "B-",
-  AB_POSITIVE = "AB+",
-  AB_NEGATIVE = "AB-",
-  O_POSITIVE = "O+",
-  O_NEGATIVE = "O-",
-}
-
-interface BloodTypeSelectProps {
-  value: BloodType;
-  onChange: (event: SelectChangeEvent<BloodType>) => void;
-  fullWidth?: boolean;
-}
+import REDatePicker from "@/components/Forms/REDatePicker";
+import RESelectField from "@/components/Forms/RESelectField";
+import { BloodType, donateBlood } from "@/types";
 
 export const patientValidationSchema = z.object({
   name: z.string().min(1, "Please enter your name!"),
@@ -70,14 +53,8 @@ export const defaultValues = {
   },
 };
 
-const RegisterPage: React.FC<BloodTypeSelectProps> = ({}) => {
-  const [bloodType, setBloodType] = useState<BloodType>(BloodType.A_POSITIVE);
-  const [lastDonationDate, setLastDonationDate] = useState<Date | null>(null);
+const RegisterPage = () => {
   const router = useRouter();
-
-  const handleLastDonationDateChange = (date: Date | null) => {
-    setLastDonationDate(date);
-  };
 
   const handleRegister = async (values: FieldValues) => {
     const data = modifyPayload(values);
@@ -92,7 +69,7 @@ const RegisterPage: React.FC<BloodTypeSelectProps> = ({}) => {
           email: values.email,
         });
         if (result?.data?.accessToken) {
-          storeUserInfo({ accessToken: result?.data?.accessToken });
+          storeUserInfo({ token: result?.data?.token });
           router.push("/dashboard");
         }
       }
@@ -148,8 +125,8 @@ const RegisterPage: React.FC<BloodTypeSelectProps> = ({}) => {
               defaultValues={defaultValues}
             >
               <Grid container spacing={2} my={1}>
-                <Grid item md={12}>
-                  <REInput label="Name" fullWidth={true} name="name" />
+                <Grid item md={6}>
+                  <REInput label="Username" fullWidth={true} name="username" />
                 </Grid>
                 <Grid item md={6}>
                   <REInput
@@ -168,20 +145,13 @@ const RegisterPage: React.FC<BloodTypeSelectProps> = ({}) => {
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <Select
-                    labelId="blood-type-label"
-                    // value={bloodType}
+                  <RESelectField
+                    items={BloodType}
+                    name="bloodType"
                     label="Blood Type"
-                    // onChange={handleBloodTypeChange}
-                    fullWidth={true}
-                    size="small"
-                  >
-                    {Object.values(BloodType).map((bloodType) => (
-                      <MenuItem key={bloodType} value={bloodType}>
-                        {bloodType}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                    sx={{ mb: 2 }}
+                    fullWidth
+                  />
                 </Grid>
                 <Grid item md={6}>
                   <REInput label="Location" fullWidth={true} name="location" />
@@ -194,31 +164,30 @@ const RegisterPage: React.FC<BloodTypeSelectProps> = ({}) => {
                     name="age"
                   />
                 </Grid>
+                <Grid item md={6}>
+                  <REDatePicker
+                    name="lastDonationDate"
+                    label="last Donation Date"
+                  />
+                </Grid>
+                <Grid item md={6}>
+                  <RESelectField
+                    items={donateBlood}
+                    name="donateBlood"
+                    label="Donate Blood"
+                    sx={{ mb: 2 }}
+                    fullWidth
+                  />
+                </Grid>
                 <Grid item md={12}>
                   <REInput
                     label="Bio"
                     fullWidth={true}
                     name="bio"
                     // multiline
-                    rows={4}
+                    // rows={4}
                   />
                 </Grid>
-                {/* <Grid item md={12}>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                      label="Last Donation Date"
-                      value={lastDonationDate}
-                      onChange={handleLastDonationDateChange}
-                      renderInput={(params) => (
-                        <REInput
-                          {...params}
-                          label="Last Donation Date"
-                          fullWidth={true}
-                        />
-                      )}
-                    />
-                  </LocalizationProvider>
-                </Grid> */}
               </Grid>
               <Button
                 sx={{
