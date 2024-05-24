@@ -141,12 +141,12 @@ const BloodDonors: React.FC = () => {
         </Box>
 
         <Stack
-          direction="row"
+          direction={{ xs: "column", md: "row" }}
           justifyContent="space-between"
           alignItems="center"
           my={2}
+          spacing={2} // adjust as needed
         >
-          {/* <TextField size="small" placeholder="Search Blood Donors" /> */}
           <TextField
             size="small"
             placeholder="Search Blood Donors"
@@ -162,7 +162,7 @@ const BloodDonors: React.FC = () => {
               ),
             }}
           />
-          <Box mb={2} textAlign="center">
+          <Box mb={{ xs: 2, md: 0 }} textAlign="center">
             <Button variant="contained" color="primary" onClick={toggleFilters}>
               {filtersVisible ? "Hide Filters" : "Open Filters"}
             </Button>
