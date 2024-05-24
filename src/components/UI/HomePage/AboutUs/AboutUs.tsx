@@ -8,83 +8,7 @@ const AboutUs = () => {
     avatarUrl: string;
   }
 
-  const team: TeamMember[] = [
-    {
-      name: "John Doe",
-      role: "Founder & CEO",
-      avatarUrl: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Jane Smith",
-      role: "Chief Technology Officer",
-      avatarUrl: "https://via.placeholder.com/150",
-    },
-    // Add more team members as needed
-  ];
-
   return (
-    // <Container>
-    //   <Box my={10}>
-    //     <Box>
-    //       <Grid container spacing={2} mt={5}>
-    //         <Grid item xs={6}>
-    //           <Image
-    //             src="https://img.freepik.com/free-vector/blood-donor-nurse_74855-6262.jpg?t=st=1716383590~exp=1716387190~hmac=c4981f3af82a12b8394694bd3b891b83044e4613eaac77689fe1a09daf612663&w=740"
-    //             alt="About image"
-    //             width={650}
-    //             height={550}
-    //           />
-    //         </Grid>
-    //         <Grid item xs={6}>
-    //           <Typography variant="h4" component="h5" fontWeight={400}>
-    //             About Us
-    //           </Typography>
-    //         </Grid>
-    //       </Grid>
-    //     </Box>
-    //   </Box>
-    // </Container>
-    // <Container maxWidth="md">
-    //   <Box my={4}>
-    //     <Typography variant="h4" component="h1" gutterBottom>
-    //       About Us
-    //     </Typography>
-    //     <Typography variant="body1" paragraph>
-    //       Welcome to our website! Our mission is to provide exceptional services
-    //       and products to our customers. We strive to exceed expectations and
-    //       continuously improve our offerings. Our team is dedicated to ensuring
-    //       your satisfaction and delivering the highest quality in everything we
-    //       do.
-    //     </Typography>
-    //     <Typography variant="h5" component="h2" gutterBottom>
-    //       Our Team
-    //     </Typography>
-    //     <Grid container spacing={4}>
-    //       {team.map((member) => (
-    //         <Grid item xs={12} sm={6} md={4} key={member.name}>
-    //           <Box display="flex" flexDirection="column" alignItems="center">
-    //             <Avatar
-    //               src={member.avatarUrl}
-    //               alt={member.name}
-    //               sx={{ width: 100, height: 100 }}
-    //             />
-    //             <Typography
-    //               variant="h6"
-    //               component="h3"
-    //               align="center"
-    //               gutterBottom
-    //             >
-    //               {member.name}
-    //             </Typography>
-    //             <Typography variant="body2" align="center">
-    //               {member.role}
-    //             </Typography>
-    //           </Box>
-    //         </Grid>
-    //       ))}
-    //     </Grid>
-    //   </Box>
-    // </Container>
     <Container>
       <Box my={12}>
         <Box textAlign={"center"}>
@@ -116,7 +40,7 @@ const AboutUs = () => {
         </Box>
         <Box>
           <Grid container spacing={3} mt={4}>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Image
                 src="https://img.freepik.com/free-vector/blood-donor-nurse_74855-6262.jpg?t=st=1716383590~exp=1716387190~hmac=c4981f3af82a12b8394694bd3b891b83044e4613eaac77689fe1a09daf612663&w=740"
                 alt="about image"
@@ -124,7 +48,7 @@ const AboutUs = () => {
                 height={500}
               />
             </Grid>
-            <Grid item xs={6} mt={2}>
+            <Grid item xs={12} md={6} mt={2}>
               <Grid container spacing={2}>
                 <Grid item xs={6}>
                   <Box
@@ -149,7 +73,7 @@ const AboutUs = () => {
                       fontWeight={500}
                       mt={1}
                     >
-                      Ashikur Rahman
+                      Abir Khan
                     </Typography>
                     <Typography component="p" fontSize={15} fontWeight={400}>
                       Founder & CEO
@@ -182,7 +106,7 @@ const AboutUs = () => {
                       Sanjida Islam
                     </Typography>
                     <Typography component="p" fontSize={15} fontWeight={400}>
-                      Chief Technology Officer
+                      Chief Officer
                     </Typography>
                   </Box>
                 </Grid>
@@ -209,7 +133,7 @@ const AboutUs = () => {
                       fontWeight={500}
                       mt={1}
                     >
-                      Awlad Hossain
+                      Awlad Islam
                     </Typography>
                     <Typography component="p" fontSize={15} fontWeight={400}>
                       Head of Marketing
@@ -239,7 +163,7 @@ const AboutUs = () => {
                       fontWeight={500}
                       mt={1}
                     >
-                      Samiya Yeasmin
+                      Yeasmin Ara
                     </Typography>
                     <Typography component="p" fontSize={15} fontWeight={400}>
                       Product Manager
