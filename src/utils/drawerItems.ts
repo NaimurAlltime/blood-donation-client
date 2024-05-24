@@ -14,32 +14,12 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
   const roleMenus: DrawerItem[] = [];
 
   switch (role) {
-    case USER_ROLE.SUPER_ADMIN:
-      roleMenus.push(
-        {
-          title: "Dashboard",
-          path: `${role}`,
-          icon: DashboardIcon,
-        },
-        {
-          title: "Manage Users",
-          path: `${role}/manage-users`,
-          icon: GroupIcon,
-        }
-      );
-      break;
-
     case USER_ROLE.ADMIN:
       roleMenus.push(
         {
           title: "Dashboard",
           path: `${role}`,
           icon: DashboardIcon,
-        },
-        {
-          title: "Specialties",
-          path: `${role}/specialties`,
-          icon: TryIcon,
         },
         {
           title: "Doctors",
