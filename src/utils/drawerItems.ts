@@ -3,10 +3,11 @@ import { DrawerItem, UserRole } from "@/types";
 
 //icons
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PersonIcon from "@mui/icons-material/Person";
 import KeyIcon from "@mui/icons-material/Key";
+import GroupIcon from "@mui/icons-material/Group";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import BloodtypeIcon from "@mui/icons-material/Bloodtype";
 
 export const drawerItems = (role: UserRole): DrawerItem[] => {
   const roleMenus: DrawerItem[] = [];
@@ -33,14 +34,19 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           icon: DashboardIcon,
         },
         {
-          title: "Edit Profile",
-          path: `${role}/edit-profile`,
-          icon: CalendarMonthIcon,
+          title: "Manage Users",
+          path: `${role}/manageUsers`,
+          icon: GroupIcon,
         },
         {
-          title: "Blood Request",
-          path: `${role}/blood-request`,
-          icon: CalendarMonthIcon,
+          title: "My Requests",
+          path: `${role}/my-donation-request`,
+          icon: PersonSearchIcon,
+        },
+        {
+          title: "Received Requests",
+          path: `${role}/donation-request-for-blood`,
+          icon: BloodtypeIcon,
         }
       );
       break;
@@ -53,14 +59,14 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           icon: DashboardIcon,
         },
         {
-          title: "Edit Profile",
-          path: `${role}/edit-profile`,
-          icon: CalendarMonthIcon,
+          title: "My Requests",
+          path: `${role}/my-donation-request`,
+          icon: PersonSearchIcon,
         },
         {
-          title: "Blood Request",
-          path: `${role}/blood-request`,
-          icon: CalendarMonthIcon,
+          title: "Received Requests",
+          path: `${role}/donation-request-for-blood`,
+          icon: BloodtypeIcon,
         }
       );
       break;
