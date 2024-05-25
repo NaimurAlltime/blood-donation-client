@@ -3,15 +3,26 @@ import { DrawerItem, UserRole } from "@/types";
 
 //icons
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import GroupIcon from "@mui/icons-material/Group";
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import ReviewsIcon from "@mui/icons-material/Reviews";
-import AirlineSeatIndividualSuiteIcon from "@mui/icons-material/AirlineSeatIndividualSuite";
-import TryIcon from "@mui/icons-material/Try";
+import PersonIcon from "@mui/icons-material/Person";
+import KeyIcon from "@mui/icons-material/Key";
 
 export const drawerItems = (role: UserRole): DrawerItem[] => {
   const roleMenus: DrawerItem[] = [];
+
+  const defaultMenus = [
+    {
+      title: "Profile",
+      path: `${role}/profile`,
+      icon: PersonIcon,
+    },
+    {
+      title: "Change Password",
+      path: `change-password`,
+      icon: KeyIcon,
+    },
+  ];
 
   switch (role) {
     case USER_ROLE.ADMIN:
@@ -22,29 +33,19 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           icon: DashboardIcon,
         },
         {
-          title: "Doctors",
-          path: `${role}/doctors`,
-          icon: MedicalInformationIcon,
-        },
-        {
-          title: "Schedules",
-          path: `${role}/schedules`,
+          title: "Edit Profile",
+          path: `${role}/edit-profile`,
           icon: CalendarMonthIcon,
         },
         {
-          title: "Appointments",
-          path: `${role}/appointments`,
+          title: "Blood Request",
+          path: `${role}/blood-request`,
           icon: CalendarMonthIcon,
-        },
-        {
-          title: "Reviews",
-          path: `${role}/reviews`,
-          icon: ReviewsIcon,
         }
       );
       break;
 
-    case USER_ROLE.DOCTOR:
+    case USER_ROLE.USER:
       roleMenus.push(
         {
           title: "Dashboard",
@@ -52,34 +53,14 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           icon: DashboardIcon,
         },
         {
-          title: "Schedules",
-          path: `${role}/schedules`,
+          title: "Edit Profile",
+          path: `${role}/edit-profile`,
           icon: CalendarMonthIcon,
         },
         {
-          title: "Appointments",
-          path: `${role}/appointment`,
+          title: "Blood Request",
+          path: `${role}/blood-request`,
           icon: CalendarMonthIcon,
-        }
-      );
-      break;
-
-    case USER_ROLE.PATIENT:
-      roleMenus.push(
-        {
-          title: "Appointments",
-          path: `${role}/appointments`,
-          icon: DashboardIcon,
-        },
-        {
-          title: "Prescriptions",
-          path: `${role}/prescriptions`,
-          icon: DashboardIcon,
-        },
-        {
-          title: "Payment History",
-          path: `${role}/payment-history`,
-          icon: DashboardIcon,
         }
       );
       break;
@@ -88,5 +69,5 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
       break;
   }
 
-  return [...roleMenus];
+  return [...roleMenus, ...defaultMenus];
 };

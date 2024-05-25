@@ -33,7 +33,7 @@ const LoginPage = () => {
         storeUserInfo({ token: res?.data?.token });
         router.push("/dashboard");
       } else {
-        setError(res.message);
+        setError(res.errorDetails);
         // console.log(res);
       }
     } catch (err: any) {
