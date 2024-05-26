@@ -1,114 +1,113 @@
 "use client";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Stack,
-  Typography,
-} from "@mui/material";
+
+import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import assets from "@/assets";
-import Link from "next/link";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import { modifyPayload } from "@/utils/modifyPayload";
-import { registerPatient } from "@/services/actions/registerPatient";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { userLogin } from "@/services/actions/userLogin";
-import { storeUserInfo } from "@/services/auth.services";
+import React from "react";
 import REForm from "@/components/Forms/REForm";
+import Link from "next/link";
 import REInput from "@/components/Forms/REInput";
+import { FieldValues } from "react-hook-form";
+import RESelectField from "@/components/Forms/RESelectField";
+import { toast } from "sonner";
+import { userLogin } from "@/services/actions/userLogin";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import { BloodType, donateBlood, roles } from "@/types";
+import { storeUserInfo } from "@/services/auth.services";
+import { registerUser } from "@/services/actions/registerUser";
+import { dateFormatter } from "@/utils/dateFormatter";
 import REDatePicker from "@/components/Forms/REDatePicker";
-import RESelectField from "@/components/Forms/RESelectField";
-import { BloodType, donateBlood } from "@/types";
+import assets from "@/assets";
 
-export const patientValidationSchema = z.object({
+// Validation schema for patient registration
+export const ValidationSchema = z.object({
   name: z.string().min(1, "Please enter your name!"),
-  email: z.string().email("Please enter a valid email address!"),
-  contactNumber: z
-    .string()
-    .regex(/^\d{11}$/, "Please provide a valid phone number!"),
-  address: z.string().min(1, "Please enter your address!"),
+  email: z.string().email("Please enter a valid email!"),
+  location: z.string().min(1, "Please enter your location!"),
+  password: z.string().min(6, "Must be at least 6 characters!"),
+  bloodType: z.string().min(1, "Please select a blood group!"),
+  donateOption: z.string().min(1, "Please select an option!"),
+  age: z.preprocess(
+    (val) => Number(val),
+    z.number().min(1, "Please enter your age!")
+  ),
+  role: z.string().min(1, "Please select a role!"),
 });
 
-export const validationSchema = z.object({
-  password: z.string().min(6, "Must be at least 6 characters"),
-  patient: patientValidationSchema,
-});
-
-export const defaultValues = {
+const defaultValues = {
+  name: "",
+  email: "",
   password: "",
-  patient: {
-    name: "",
-    email: "",
-    contactNumber: "",
-    address: "",
-  },
+  confirmPassword: "",
+  bloodType: "",
+  donateOption: "",
+  location: "",
+  age: 0,
+  profilePhoto: "",
 };
 
 const RegisterPage = () => {
   const router = useRouter();
 
   const handleRegister = async (values: FieldValues) => {
-    const data = modifyPayload(values);
-    // console.log(data);
+    const registerUserData = {
+      name: values?.name,
+      email: values?.email,
+      password: values?.password,
+      bloodType: values?.bloodType,
+      location: values?.location,
+      role: values?.role,
+      lastDonationDate: dateFormatter(values?.lastDonationDate),
+      age: Number(values?.age),
+      profilePhoto: values?.profilePhoto || "",
+    };
+
+    // console.log({ registerUserData });
+
     try {
-      const res = await registerPatient(data);
-      // console.log(res);
+      const res = await registerUser(registerUserData);
+      console.log(res);
+
+      // Register user direct login functionality
       if (res?.data?.id) {
-        toast.success(res?.message);
+        toast.success("User registered successfully!");
         const result = await userLogin({
           password: values.password,
           email: values.email,
         });
-        if (result?.data?.accessToken) {
+        if (result?.data?.token) {
           storeUserInfo({ token: result?.data?.token });
           router.push("/dashboard");
         }
       }
     } catch (err: any) {
-      console.error(err.message);
+      console.log(err);
     }
   };
 
   return (
     <Container>
       <Stack
-        sx={{
-          height: "100vh",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        sx={{ justifyContent: "center", alignItems: "center", height: "100vh" }}
       >
         <Box
           sx={{
             maxWidth: 600,
             width: "100%",
             boxShadow: 1,
-            borderRadius: 1,
             p: 4,
+            borderRadius: 1,
             textAlign: "center",
           }}
         >
-          <Stack
-            sx={{
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <Stack sx={{ justifyContent: "center", alignItems: "center" }}>
             <Box>
               <Image
                 src={assets.images.logo}
-                width={120}
-                height={120}
                 alt="logo"
+                width={100}
+                height={90}
               />
             </Box>
             <Box>
@@ -121,22 +120,23 @@ const RegisterPage = () => {
           <Box>
             <REForm
               onSubmit={handleRegister}
-              resolver={zodResolver(validationSchema)}
+              resolver={zodResolver(ValidationSchema)}
               defaultValues={defaultValues}
             >
               <Grid container spacing={2} my={1}>
-                <Grid item md={6}>
-                  <REInput label="Username" fullWidth={true} name="username" />
+                <Grid item xs={12} sm={12} md={6}>
+                  <REInput label="Name" fullWidth={true} name="name" />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} sm={12} md={6}>
                   <REInput
                     label="Email"
                     type="email"
-                    fullWidth={true}
                     name="email"
+                    fullWidth={true}
                   />
                 </Grid>
-                <Grid item md={6}>
+
+                <Grid item xs={12} sm={12} md={6}>
                   <REInput
                     label="Password"
                     type="password"
@@ -144,51 +144,51 @@ const RegisterPage = () => {
                     name="password"
                   />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} sm={12} md={6}>
+                  <REInput label="Location" fullWidth={true} name="location" />
+                </Grid>
+                <Grid item xs={12} sm={12} md={6}>
+                  <RESelectField
+                    items={donateBlood}
+                    name="donateOption"
+                    label="Want to donate blood?"
+                    sx={{ mt: 0.5 }}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={12} md={6}>
                   <RESelectField
                     items={BloodType}
                     name="bloodType"
-                    label="Blood Type"
-                    sx={{ mb: 2 }}
-                    fullWidth
+                    label="Blood Group"
+                    sx={{ mt: 0.5 }}
                   />
                 </Grid>
-                <Grid item md={6}>
-                  <REInput label="Location" fullWidth={true} name="location" />
-                </Grid>
-                <Grid item md={6}>
-                  <REInput
-                    label="Age"
-                    type="number"
-                    fullWidth={true}
-                    name="age"
-                  />
-                </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} sm={12} md={6}>
                   <REDatePicker
                     name="lastDonationDate"
-                    label="last Donation Date"
+                    label="Last Donation Date"
+                    sx={{ mt: 0.5 }}
                   />
                 </Grid>
-                <Grid item md={6}>
-                  <RESelectField
-                    items={donateBlood}
-                    name="donateBlood"
-                    label="Donate Blood"
-                    sx={{ mb: 2 }}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item md={12}>
+                <Grid item xs={12} sm={12} md={6}>
                   <REInput
-                    label="Bio"
+                    label="Age"
                     fullWidth={true}
-                    name="bio"
-                    // multiline
-                    // rows={4}
+                    name="age"
+                    sx={{ mt: 0.5 }}
+                    type="number"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12}>
+                  <REInput
+                    label="Profile Photo URL"
+                    fullWidth={true}
+                    name="profilePhoto"
+                    type="string"
                   />
                 </Grid>
               </Grid>
+
               <Button
                 sx={{
                   margin: "10px 0px",
@@ -198,11 +198,12 @@ const RegisterPage = () => {
               >
                 Register
               </Button>
+
               <Typography component="p" fontWeight={300}>
                 Do you already have an account?{" "}
-                <Link href="/login" className="text-blue-500">
+                <Link href="/login">
                   <Box component="span" color="primary.main">
-                    Login
+                    Login Now
                   </Box>
                 </Link>
               </Typography>

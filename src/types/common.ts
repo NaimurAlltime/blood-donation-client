@@ -45,4 +45,6 @@ export const BloodType = [
 
 export const donateBlood = ["Yes", "No"];
 
+export const roles = ["USER", "ADMIN"];
+
 export type UserRole = keyof typeof USER_ROLE;
