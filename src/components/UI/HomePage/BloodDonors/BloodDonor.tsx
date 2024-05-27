@@ -25,8 +25,8 @@ const BloodDonor = () => {
     searchTerm: "",
   });
 
-  const { data, isFetching } = useGetAllDonorQuery(defaultValues);
-  console.log(data);
+  const { data, isFetching, isLoading } = useGetAllDonorQuery(defaultValues);
+  // console.log(data);
 
   return (
     <Container>
@@ -88,18 +88,20 @@ const BloodDonor = () => {
                   <Image height={400} width={600} src={noData} alt="no data" />
                 </Box>
               )}
-              <Grid container spacing={3}>
-                <Grid item md={4}>
-                  <Skeleton variant="rectangular" height={450} />
-                </Grid>
-                <Grid item md={4}>
-                  <Skeleton variant="rectangular" height={450} />
-                </Grid>
-                <Grid item md={4}>
-                  <Skeleton variant="rectangular" height={450} />
-                </Grid>
-              </Grid>
             </>
+          )}
+          {isLoading && (
+            <Grid container spacing={3}>
+              <Grid item md={4}>
+                <Skeleton variant="rectangular" height={400} />
+              </Grid>
+              <Grid item md={4}>
+                <Skeleton variant="rectangular" height={400} />
+              </Grid>
+              <Grid item md={4}>
+                <Skeleton variant="rectangular" height={400} />
+              </Grid>
+            </Grid>
           )}
         </Grid>
       </Box>
