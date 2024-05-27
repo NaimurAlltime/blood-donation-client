@@ -1,6 +1,9 @@
-export enum tagTypes {
-  user = "user",
-  admin = "admin",
-}
+export const tagTypes = {
+  user: "user",
+  donor: "donor",
+  request: "request",
+  bloodRequest: "bloodRequest",
+  users: "users",
+};
 
-export const tagTypesList = [tagTypes.user, tagTypes.admin];
+export const tagTypeList = Object.values(tagTypes);

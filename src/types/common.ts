@@ -32,7 +32,18 @@ export type IGenericErrorMessage = {
   message: string;
 };
 
-export const BloodType = [
+// export const BloodType = [
+//   "A_POSITIVE",
+//   "A_NEGATIVE",
+//   "B_POSITIVE",
+//   "B_NEGATIVE",
+//   "AB_POSITIVE",
+//   "AB_NEGATIVE",
+//   "O_POSITIVE",
+//   "O_NEGATIVE",
+// ];
+
+export const BloodType: string[] = [
   "A_POSITIVE",
   "A_NEGATIVE",
   "B_POSITIVE",
@@ -48,3 +59,30 @@ export const donateBlood = ["Yes", "No"];
 export const roles = ["USER", "ADMIN"];
 
 export type UserRole = keyof typeof USER_ROLE;
+
+export type TUser = {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  status: string;
+  bloodType: string;
+  location: string;
+  dateOfBirth: string;
+  lastDonationDate: string;
+  availability: boolean;
+  createdAt: string;
+  updatedAt: string;
+  userProfile: UserProfile;
+};
+
+export type UserProfile = {
+  id: string;
+  userId: string;
+  bio?: string;
+  profilePicture?: string;
+  dateOfBirth: string;
+  lastDonationDate: string;
+  createdAt: string;
+  updatedAt: string;
+};
