@@ -1,14 +1,40 @@
-export const dateFormatter = (value: string) => {
-  // Create a Date object from the input date string
-  const date = new Date(value);
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
-  // Extract the year, month, and day
+function stringToMonth(inputDate: string) {
+  if (!inputDate) return "";
+
+  const date = new Date(inputDate);
+
+  const day = date.getDate();
+  const month = date.getMonth();
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // getMonth() returns 0-11
-  const day = String(date.getDate()).padStart(2, "0"); // getDate() returns 1-31
 
-  // Format the date to "YYYY-MM-DD"
-  const formattedDate = `${year}-${month}-${day}`;
+  return `${day} ${monthNames[month]}, ${year}`;
+}
 
-  return formattedDate; // Output: 2024-05-19
+const dateToString = (inputDate: string) => {
+  const date = new Date(inputDate);
+
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  return `${year}-${month <= 9 ? "0" + month : month}-${day}`;
 };
+
+const dateFormatter = { stringToMonth, dateToString };
+
+export default dateFormatter;

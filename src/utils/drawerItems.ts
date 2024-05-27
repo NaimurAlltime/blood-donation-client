@@ -14,8 +14,8 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
 
   const defaultMenus = [
     {
-      title: "Profile",
-      path: `${role}/profile`,
+      title: "My Profile",
+      path: "/profile",
       icon: PersonIcon,
     },
     {

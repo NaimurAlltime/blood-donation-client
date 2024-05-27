@@ -1,3 +1,4 @@
+import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
 const donorApi = baseApi.injectEndpoints({
@@ -21,7 +22,15 @@ const donorApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    getMyProfile: build.query({
+      query: () => ({
+        url: "/my-profile",
+        method: "GET",
+      }),
+      providesTags: [tagTypes.user],
+    }),
   }),
 });
 
-export const { useGetAllDonorQuery } = donorApi;
+export const { useGetAllDonorQuery, useGetMyProfileQuery } = donorApi;
