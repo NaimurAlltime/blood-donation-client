@@ -11,6 +11,7 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+
     changePassword: build.mutation({
       query: (data) => ({
         url: `/change-password`,
@@ -20,12 +21,22 @@ export const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.user],
     }),
+
     getSingleUser: build.query({
       query: () => ({
         url: "/my-profile",
         method: "GET",
       }),
       providesTags: [tagTypes.user],
+    }),
+
+    updateMyProfile: build.mutation({
+      query: ({ payload }) => ({
+        url: "/my-profile",
+        method: "PUT",
+        body: payload,
+      }),
+      invalidatesTags: [tagTypes.user, tagTypes.request, tagTypes.donor],
     }),
   }),
 });
@@ -34,4 +45,5 @@ export const {
   useUserLoginMutation,
   useChangePasswordMutation,
   useGetSingleUserQuery,
+  useUpdateMyProfileMutation,
 } = authApi;

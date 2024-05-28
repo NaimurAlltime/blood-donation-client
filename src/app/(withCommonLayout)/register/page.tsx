@@ -13,12 +13,12 @@ import { userLogin } from "@/services/actions/userLogin";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BloodType, donateBlood, roles } from "@/types";
 import { storeUserInfo } from "@/services/auth.services";
 import { registerUser } from "@/services/actions/registerUser";
-import { dateFormatter } from "@/utils/dateFormatter";
 import REDatePicker from "@/components/Forms/REDatePicker";
 import assets from "@/assets";
+import dateFormatter from "@/utils/dateFormatter";
+import { BloodType, donateBlood } from "@/contants";
 
 // Validation schema for patient registration
 export const ValidationSchema = z.object({
@@ -58,7 +58,7 @@ const RegisterPage = () => {
       bloodType: values?.bloodType,
       location: values?.location,
       role: values?.role,
-      lastDonationDate: dateFormatter(values?.lastDonationDate),
+      lastDonationDate: dateFormatter.dateToString(values?.lastDonationDate),
       age: Number(values?.age),
       profilePhoto: values?.profilePhoto || "",
     };
