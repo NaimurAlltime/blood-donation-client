@@ -41,10 +41,6 @@ const UpdateProfilePage = () => {
   };
 
   const handleUpdateProfile = async (values: any) => {
-    // if (imageUrl) {
-    //   values.userProfile.profilePhoto = imageUrl;
-    // }
-
     const updateData = {
       name: values?.name,
       username: values?.username,
@@ -59,16 +55,13 @@ const UpdateProfilePage = () => {
       },
     };
 
-    // console.log(updateData);
     try {
       const res = await updateMyProfile({ updateData }).unwrap();
-      // console.log("res", res);
       if (res) {
         router.push("/dashboard/profile");
         toast.success("Profile Updated Successfully!");
       }
     } catch (error: any) {
-      // console.log(error);
       toast.error(error.message);
     }
   };
