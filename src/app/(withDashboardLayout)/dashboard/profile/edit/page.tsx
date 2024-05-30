@@ -24,52 +24,52 @@ const UpdateProfilePage = () => {
   const { data, isLoading } = useGetSingleUserQuery({});
   const [imageUrl, setImageUrl] = useState<null | string>(null);
   const router = useRouter();
-  console.log("edit", data);
+  // console.log("edit", data?.userProfile?.age);
 
   if (isLoading) return <Loader />;
 
   const defaultValues = {
-    user: {
-      name: data?.name,
-      email: data?.email,
-      username: data?.username,
-      bloodType: data?.bloodType,
-      location: data?.location,
-      availability: String(data?.availability),
-    },
-    userProfile: {
-      bio: data?.userProfile?.bio || "",
-      dateOfBirth: data?.userProfile?.dateOfBirth,
-      lastDonationDate: data?.userProfile?.lastDonationDate,
-      profilePicture: "",
-    },
+    name: data?.name,
+    email: data?.email,
+    username: data?.username,
+    bloodType: data?.bloodType,
+    location: data?.location,
+    availability: data?.availability,
+    age: data?.userProfile?.age,
+    lastDonationDate: data?.userProfile?.lastDonationDate,
+    profilePhoto: data?.userProfile?.profilePhoto,
   };
 
   const handleUpdateProfile = async (values: any) => {
-    if (imageUrl) {
-      values.userProfile.profilePicture = imageUrl;
-    }
-    values.userProfile.dateOfBirth = dateFormatter.dateToString(
-      values.userProfile.dateOfBirth
-    );
-    values.userProfile.lastDonationDate = dateFormatter.dateToString(
-      values.userProfile.lastDonationDate
-    );
-    values.userProfile.id = data.userProfile.id;
-    values.user.availability = values.user.availability === "true";
-    values.userProfile.bio = values.userProfile.bio;
+    // if (imageUrl) {
+    //   values.userProfile.profilePhoto = imageUrl;
+    // }
 
+    const updateData = {
+      name: values?.name,
+      username: values?.username,
+      email: values?.email,
+      bloodType: values?.bloodType,
+      location: values?.location,
+      availability: values.availability,
+      userProfile: {
+        lastDonationDate: dateFormatter.dateToString(values?.lastDonationDate),
+        age: Number(values?.age),
+        profilePhoto: imageUrl || data?.userProfile?.profilePhoto,
+      },
+    };
+
+    // console.log(updateData);
     try {
-      const res = await updateMyProfile({
-        id: data.id,
-        payload: values,
-      }).unwrap();
-      if (res.success) {
-        router.push("/profile");
+      const res = await updateMyProfile({ updateData }).unwrap();
+      // console.log("res", res);
+      if (res) {
+        router.push("/dashboard/profile");
         toast.success("Profile Updated Successfully!");
       }
-    } catch (error) {
-      toast.error("Failed to Update Profile");
+    } catch (error: any) {
+      // console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -79,7 +79,7 @@ const UpdateProfilePage = () => {
     data.append("file", image);
     data.append("upload_preset", config.cloudinaryUploadPreset as string);
     data.append("cloud_name", config.cloudinaryCloudName as string);
-    data.append("folder", "blood-aid-network");
+    data.append("folder", "blood-donation");
 
     try {
       const response = await fetch(
@@ -93,7 +93,7 @@ const UpdateProfilePage = () => {
 
       if (res.secure_url) {
         setImageUrl(res.secure_url);
-        toast.success("Image Uploaded Successfully, now save update!", {
+        toast.success("Image Uploaded Successfully!", {
           id: toastId,
         });
       } else {
@@ -110,49 +110,43 @@ const UpdateProfilePage = () => {
         <REForm onSubmit={handleUpdateProfile} defaultValues={defaultValues}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              <REInput name="user.name" label="Name" />
+              <REInput name="name" label="Name" />
             </Grid>
             <Grid item xs={12} md={6}>
-              <REInput name="user.email" label="Email" />
+              <REInput name="username" label="Username" />
             </Grid>
             <Grid item xs={12} md={6}>
-              <REInput name="user.username" label="Username" />
+              <REInput name="email" label="Email" />
             </Grid>
             <Grid item xs={12} md={6}>
               <RESelectField
                 items={BloodType}
-                name="user.bloodType"
+                name="bloodType"
                 label="Blood Group"
                 sx={{ mt: 0.5 }}
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <REInput name="user.location" label="Location" />
+              <REInput name="location" label="Location" />
             </Grid>
             <Grid item xs={12} md={6}>
               <RESelectField
                 items={Availability}
-                name="user.availability"
+                name="availability"
                 label="Availability"
                 sx={{ mt: 0.5 }}
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <REInput name="userProfile.bio" label="Bio" />
+              <REInput name="age" label="Age" />
             </Grid>
             <Grid item xs={12} md={6}>
               <REDatePicker
-                name="userProfile.dateOfBirth"
-                label="Date of Birth"
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <REDatePicker
-                name="userProfile.lastDonationDate"
+                name="lastDonationDate"
                 label="Last Donation Date"
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={12}>
               <REFileUploader
                 name="file"
                 onFileUpload={handleFileUpload}

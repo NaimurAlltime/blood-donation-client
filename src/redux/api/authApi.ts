@@ -31,10 +31,10 @@ export const authApi = baseApi.injectEndpoints({
     }),
 
     updateMyProfile: build.mutation({
-      query: ({ payload }) => ({
+      query: ({ updateData }) => ({
         url: "/my-profile",
         method: "PUT",
-        body: payload,
+        data: updateData,
       }),
       invalidatesTags: [tagTypes.user, tagTypes.request, tagTypes.donor],
     }),

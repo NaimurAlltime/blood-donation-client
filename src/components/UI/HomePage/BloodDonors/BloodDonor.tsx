@@ -85,7 +85,7 @@ const BloodDonor = () => {
                     margin: "0 auto",
                   }}
                 >
-                  <Image height={400} width={600} src={noData} alt="no data" />
+                  <Image height={200} width={300} src={noData} alt="no data" />
                 </Box>
               )}
             </>

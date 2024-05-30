@@ -25,40 +25,55 @@ const ProfilePage = () => {
   return (
     <Stack mx={{ xs: 1, md: 8 }}>
       <Stack py={5}>
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           <Grid item xs={12} lg={4}>
             <Box maxWidth={400} maxHeight={400}>
               {/* donor.userProfile.profilePicture ||  */}
-              <Image
-                src={defaultProfile}
-                alt="Donor Image"
-                width={300}
-                height={300}
-                style={{
-                  borderRadius: "8px",
-                  objectFit: "cover",
-                }}
-              />
+              {data?.userProfile?.profilePhoto ? (
+                <Image
+                  src={data?.userProfile?.profilePhoto}
+                  alt="Donor Image"
+                  width={400}
+                  height={400}
+                  style={{
+                    borderRadius: "8px",
+                    objectFit: "cover",
+                  }}
+                />
+              ) : (
+                <Image
+                  src={defaultProfile}
+                  alt="Donor Image"
+                  width={300}
+                  height={300}
+                  style={{
+                    borderRadius: "8px",
+                    objectFit: "cover",
+                  }}
+                />
+              )}
             </Box>
           </Grid>
           <Grid item xs={12} lg={8}>
             <Stack direction="column" justifyContent="center" height="100%">
-              <InfoBox name="Name" value={data.name} />
-              <InfoBox name="Email" value={data.email} />
-              <InfoBox name="Blood Group" value={data.bloodType} />
-              <InfoBox name="Location" value={data.location} />
-              <InfoBox name="Role" value={data.role} />
+              <InfoBox name="Name" value={data?.name} />
+              <InfoBox name="Username" value={data?.username} />
+              <InfoBox name="Email" value={data?.email} />
+              <InfoBox name="Blood Group" value={data?.bloodType} />
+              <InfoBox name="Location" value={data?.location} />
+              <InfoBox name="Role" value={data?.role} />
+              <InfoBox name="Age" value={data?.userProfile?.age} />
               <InfoBox
                 name="Last Donation Date"
                 value={dateFormatter.stringToMonth(
-                  data.userProfile.lastDonationDate
+                  data?.userProfile?.lastDonationDate
                 )}
               />
               <Box mt={1} ml={1} display="flex" gap={8}>
                 <InfoBox name="Availability" />
                 <Chip
-                  label={data.availability ? "Available" : "Unvailable"}
-                  color={data.availability ? "success" : "error"}
+                  label={data?.availability ? "Available" : "Unvailable"}
+                  color={data?.availability ? "success" : "error"}
                   variant="filled"
                   sx={{ padding: "0.5rem 2rem" }}
                 />

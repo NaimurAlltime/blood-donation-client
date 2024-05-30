@@ -10,17 +10,12 @@ type TFormConfig = {
   defaultValues?: Record<string, any>;
 };
 
-type TFormProps = {
+type FormProps = {
   children: React.ReactNode;
   onSubmit: SubmitHandler<FieldValues>;
 } & TFormConfig;
 
-const REForm = ({
-  children,
-  onSubmit,
-  resolver,
-  defaultValues,
-}: TFormProps) => {
+const REForm = ({ children, onSubmit, resolver, defaultValues }: FormProps) => {
   const formConfig: TFormConfig = {};
 
   if (resolver) {
@@ -34,10 +29,12 @@ const REForm = ({
   const methods = useForm(formConfig);
   const { handleSubmit, reset } = methods;
 
-  const submit: SubmitHandler<FieldValues> = (data) => {
-    // console.log(data);
-    onSubmit(data);
-    reset();
+  const submit: SubmitHandler<FieldValues> = async (data) => {
+    const result = await onSubmit(data);
+
+    if (result) {
+      reset();
+    }
   };
 
   return (
