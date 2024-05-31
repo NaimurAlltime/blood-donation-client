@@ -83,8 +83,7 @@ const DonorCard = ({ donor }: { donor: TDonor }) => {
           <Typography variant="body2" color="primary">
             <Button
               component={Link}
-              href={`/donor-details/${id}`}
-              target="_blank"
+              href={`/donor/${id}`}
               rel="noopener noreferrer"
               variant="outlined"
               size="small"
