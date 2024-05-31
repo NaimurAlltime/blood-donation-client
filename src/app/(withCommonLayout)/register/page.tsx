@@ -74,7 +74,7 @@ const RegisterPage = () => {
         toast.success("User registered successfully!");
         const result = await userLogin({
           password: values.password,
-          email: values.email,
+          usernameOrEmail: values.email,
         });
         if (result?.data?.token) {
           storeUserInfo({ token: result?.data?.token });

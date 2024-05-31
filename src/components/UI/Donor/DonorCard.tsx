@@ -22,7 +22,7 @@ interface DonorCardProps {
 }
 
 type UserProfile = {
-  bio: string;
+  profilePhoto: string;
   createdAt: string;
   id: string;
   updatedAt: string;
@@ -37,13 +37,12 @@ export type TDonor = {
   id: string;
   location: string;
   name: string;
-  photo?: string;
   updatedAt: string;
-  userProfile: UserProfile;
+  userProfile?: UserProfile;
 };
 
 const DonorCard = ({ donor }: { donor: TDonor }) => {
-  const { name, location, bloodType, availability, id, photo } = donor;
+  const { name, location, bloodType, availability, id, userProfile } = donor;
   return (
     <Card sx={{ height: "100%" }}>
       <Box
@@ -55,12 +54,12 @@ const DonorCard = ({ donor }: { donor: TDonor }) => {
           backgroundColor: "#f0f0f0", // Optional background color
         }}
       >
-        {photo ? (
+        {userProfile?.profilePhoto ? (
           <CardMedia
-            sx={{ height: 280 }}
+            sx={{ height: 280, objectFit: "contain" }}
             component="img"
             height="100"
-            image={photo}
+            image={userProfile?.profilePhoto}
             alt={name}
           />
         ) : (

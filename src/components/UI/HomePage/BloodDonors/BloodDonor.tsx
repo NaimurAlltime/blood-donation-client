@@ -26,7 +26,8 @@ const BloodDonor = () => {
   });
 
   const { data, isFetching, isLoading } = useGetAllDonorQuery(defaultValues);
-  // console.log(data);
+  // console.log("donner", data?.data);
+  const donnorData = data?.data;
 
   return (
     <Container>
@@ -69,9 +70,9 @@ const BloodDonor = () => {
         }}
       >
         <Grid container spacing={3}>
-          {data?.length > 0 && !isFetching ? (
+          {donnorData?.length > 0 && !isFetching ? (
             <>
-              {data?.map((donor: TDonor) => (
+              {donnorData?.map((donor: TDonor) => (
                 <Grid key={donor.id} item md={4}>
                   <DonorCard donor={donor} />
                 </Grid>

@@ -1,13 +1,10 @@
 "use client";
-
 import { useGetAllDonorQuery } from "@/redux/api/donorApi";
 import {
   Box,
-  Button,
   Container,
   Grid,
   Skeleton,
-  Stack,
   Typography,
   Pagination,
 } from "@mui/material";
@@ -25,15 +22,21 @@ const BloodPage = () => {
     searchTerm: "",
   });
   const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const { data, isFetching, isLoading } = useGetAllDonorQuery({
     ...defaultValues,
-    // page: currentPage,
+    page: currentPage,
+    limit: itemsPerPage,
   });
 
-  console.log("first", data);
+  const donorData = data?.data;
+  const totalPages = data?.meta.totalPage || 1;
 
-  const handlePageChange = (value: any) => {
+  const handlePageChange = (
+    _event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
     setCurrentPage(value);
   };
 
@@ -48,8 +51,8 @@ const BloodPage = () => {
       {/* Card section */}
       <Box sx={{ margin: "50px 0px" }}>
         <Grid container spacing={3}>
-          {data?.donors?.length > 0 && !isFetching ? (
-            data.donors.map((donor: TDonor) => (
+          {donorData?.length > 0 && !isFetching ? (
+            donorData.map((donor: TDonor) => (
               <Grid key={donor.id} item md={4}>
                 <DonorCard donor={donor} />
               </Grid>
@@ -79,10 +82,10 @@ const BloodPage = () => {
         </Grid>
 
         {/* Pagination */}
-        {data?.length > 1 && (
+        {donorData?.length > 0 && (
           <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
             <Pagination
-              count={data.length}
+              count={totalPages}
               page={currentPage}
               onChange={handlePageChange}
               color="primary"
