@@ -18,9 +18,9 @@ const donorApi = baseApi.injectEndpoints({
         return {
           url: `/donor-list?${qs}`,
           method: "GET",
-          contentType: "multipart/form-data",
         };
       },
+      providesTags: [tagTypes.user],
     }),
 
     getMyProfile: build.query({

@@ -7,7 +7,6 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { userLogin } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/auth.services";
 import { toast } from "sonner";
-import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 import REInput from "@/components/Forms/REInput";
 import { z } from "zod";
@@ -16,7 +15,9 @@ import { useState } from "react";
 import REForm from "@/components/Forms/REForm";
 
 export const validationSchema = z.object({
-  email: z.string().email("Please enter a valid email address!"),
+  usernameOrEmail: z
+    .string()
+    .min(1, "Please enter a valid Username or Email address!"),
   password: z.string().min(6, "Must be at least 6 characters"),
 });
 
@@ -25,19 +26,21 @@ const LoginPage = () => {
   const [error, setError] = useState("");
 
   const handleLogin = async (values: FieldValues) => {
-    // console.log(values);
     try {
       const res = await userLogin(values);
+
+      // Check if res.data and res.data.token exist
       if (res?.data?.token) {
         toast.success(res?.message);
-        storeUserInfo({ token: res?.data?.token });
+        storeUserInfo({ token: res.data.token });
         router.push("/dashboard");
       } else {
-        setError(res.errorDetails);
-        // console.log(res);
+        // Handle the case where res.data or res.data.token is undefined
+        const errorMsg = res?.message || "An error occurred during login.";
+        setError(errorMsg);
       }
     } catch (err: any) {
-      console.error(err.message);
+      setError(err.message || "Internal Server Error");
     }
   };
 
@@ -82,18 +85,8 @@ const LoginPage = () => {
           </Stack>
 
           {error && (
-            <Box>
-              <Typography
-                sx={{
-                  backgroundColor: "red",
-                  padding: "1px",
-                  borderRadius: "2px",
-                  color: "white",
-                  marginTop: "5px",
-                }}
-              >
-                {error}
-              </Typography>
+            <Box sx={{ backgroundColor: "red", p: 1, borderRadius: 1, mt: 1 }}>
+              <Typography color="white">{error}</Typography>
             </Box>
           )}
 
@@ -102,17 +95,17 @@ const LoginPage = () => {
               onSubmit={handleLogin}
               resolver={zodResolver(validationSchema)}
               defaultValues={{
-                email: "",
+                usernameOrEmail: "",
                 password: "",
               }}
             >
               <Grid container spacing={2} my={1}>
                 <Grid item md={6}>
                   <REInput
-                    name="email"
-                    label="Email"
-                    type="email"
-                    fullWidth={true}
+                    name="usernameOrEmail"
+                    label="Username OR Email"
+                    type="text"
+                    fullWidth
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -120,7 +113,7 @@ const LoginPage = () => {
                     name="password"
                     label="Password"
                     type="password"
-                    fullWidth={true}
+                    fullWidth
                   />
                 </Grid>
               </Grid>
@@ -133,7 +126,7 @@ const LoginPage = () => {
                 sx={{
                   margin: "10px 0px",
                 }}
-                fullWidth={true}
+                fullWidth
                 type="submit"
               >
                 Login

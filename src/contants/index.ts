@@ -11,6 +11,4 @@ export const BloodType: string[] = [
 
 export const Availability: string[] = ["true", "false"];
 
-export const donateBlood = ["Yes", "No"];
-
 export const roles = ["USER", "ADMIN"];

@@ -14,8 +14,8 @@ export const userLogin = async (data: FieldValues) => {
 
   const userInfo = await res.json();
 
-  if (userInfo.data.token) {
-    setAccessToken(userInfo.data.token, { redirect: "/dashboard" });
+  if (userInfo?.data?.token) {
+    setAccessToken(userInfo?.data?.token, { redirect: "/dashboard" });
   }
 
   return userInfo;
