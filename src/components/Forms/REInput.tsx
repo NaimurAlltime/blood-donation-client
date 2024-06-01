@@ -1,4 +1,4 @@
-import { SxProps, TextField } from "@mui/material";
+import { SxProps, TextField, TextFieldProps } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 
 type TInputProps = {
@@ -10,6 +10,7 @@ type TInputProps = {
   sx?: SxProps;
   placeholder?: string;
   required?: boolean;
+  InputProps?: TextFieldProps["InputProps"];
 };
 
 const REInput = ({
@@ -20,6 +21,7 @@ const REInput = ({
   fullWidth = true,
   sx,
   required,
+  InputProps,
 }: TInputProps) => {
   const { control } = useFormContext();
   return (
@@ -39,6 +41,7 @@ const REInput = ({
           required={required}
           error={!!error?.message}
           helperText={error?.message}
+          InputProps={InputProps}
         />
       )}
     />

@@ -5,6 +5,7 @@ const assets = {
     logo: require("./logo/logo.png"),
     dafult_profile: require("./image/user_placeholder.png"),
     logo_white: require("./logo/logo-white.png"),
+    logo_small: require("./logo/logo-small.png"),
     gallery_1: require("./image/gallery_1.webp"),
     gallery_2: require("./image/gallery_2.webp"),
     gallery_3: require("./image/gallery_3.webp"),

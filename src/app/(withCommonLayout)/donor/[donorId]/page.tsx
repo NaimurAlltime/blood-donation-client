@@ -13,6 +13,7 @@ import dateFormatter from "@/utils/dateFormatter";
 import Contact from "./Contact";
 import { config } from "@/config";
 import assets from "@/assets";
+import Link from "next/link";
 
 const DonorDetailsPage = async ({
   params,
@@ -31,7 +32,7 @@ const DonorDetailsPage = async ({
   const donor = data.data as any;
 
   return (
-    <Container maxWidth="lg">
+    <Container>
       <Stack py={5}>
         <Grid container spacing={2}>
           <Grid item xs={12} lg={4}>
@@ -51,10 +52,10 @@ const DonorDetailsPage = async ({
             </Box>
           </Grid>
           <Grid item xs={12} lg={8}>
-            <Stack direction="column" justifyContent="center" height="100%">
+            <Stack direction="column" justifyContent="center">
               <InfoBox name="Name" value={donor.name} />
-              <InfoBox name="Username" value={donor.username} />
-              <InfoBox name="Email" value={donor.email} />
+              {/* <InfoBox name="Username" value={donor.username} />
+              <InfoBox name="Email" value={donor.email} /> */}
               <InfoBox name="Status" value={donor.status} />
               <InfoBox name="Blood Group" value={donor.bloodType} />
               <InfoBox name="Location" value={donor.location} />
@@ -64,28 +65,27 @@ const DonorDetailsPage = async ({
                   donor.userProfile.lastDonationDate
                 )}
               />
-              <Box mt={1} display="flex" gap={4}>
-                <Chip
-                  label={donor.availability ? "Available" : "Not Available"}
-                  color={donor.availability ? "success" : "error"}
-                  variant="filled"
-                  sx={{ padding: "0.5rem 2rem" }}
-                />
-              </Box>
+              <InfoBox
+                name="Availability"
+                value={donor.availability ? "Available" : "Unavailable"}
+              />
             </Stack>
+            {/* <Stack direction="column" justifyContent="center">
+              <InfoBox name="Contact Details:" />
+              <InfoBox name="Username" value={donor.username} />
+              <InfoBox name="Email" value={donor.email} />
+            </Stack> */}
+            <Button
+              component={Link}
+              href={`/blood-request/${donor?.id}`}
+              className="btn-primary"
+              size="small"
+              sx={{ mt: 3 }}
+            >
+              Request Blood
+            </Button>
           </Grid>
         </Grid>
-      </Stack>
-
-      <Stack py={2} pb={5}>
-        <Container maxWidth="xs">
-          <Stack boxShadow={24} p={3}>
-            <Typography variant="h5" fontWeight={700} mb={2} textAlign="center">
-              Contact With donor
-            </Typography>
-            <Contact donorId={params.donorId} />
-          </Stack>
-        </Container>
       </Stack>
     </Container>
   );

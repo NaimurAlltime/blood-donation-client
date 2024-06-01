@@ -23,6 +23,15 @@ const donorApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.user],
     }),
 
+    createBloodRequest: build.mutation({
+      query: (data) => ({
+        url: "/donation-request",
+        method: "POST",
+        data,
+      }),
+      invalidatesTags: [tagTypes.request],
+    }),
+
     getMyProfile: build.query({
       query: () => ({
         url: "/my-profile",
@@ -33,4 +42,8 @@ const donorApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllDonorQuery, useGetMyProfileQuery } = donorApi;
+export const {
+  useGetAllDonorQuery,
+  useCreateBloodRequestMutation,
+  useGetMyProfileQuery,
+} = donorApi;

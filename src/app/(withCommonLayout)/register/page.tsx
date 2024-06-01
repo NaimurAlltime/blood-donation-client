@@ -12,7 +12,16 @@ import { registerUser } from "@/services/actions/registerUser";
 import { userLogin } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/auth.services";
 import dateFormatter from "@/utils/dateFormatter";
-import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -20,24 +29,36 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 // Validation schema for patient registration
-export const ValidationSchema = z.object({
-  name: z.string().min(1, "Please enter your name!"),
-  username: z.string().min(1, "Please enter your username!"),
-  email: z.string().email("Please enter a valid email!"),
-  location: z.string().min(1, "Please enter your location!"),
-  password: z.string().min(6, "Must be at least 6 characters!"),
-  bloodType: z.string().min(1, "Please select a blood group!"),
-  age: z.preprocess(
-    (val) => Number(val),
-    z.number().min(1, "Please enter your age!")
-  ),
-  lastDonationDate: z.date({ message: "Provide a valid  last Donation Date" }),
-});
+export const ValidationSchema = z
+  .object({
+    name: z.string().min(1, "Please enter your name!"),
+    username: z.string().min(1, "Please enter your username!"),
+    email: z.string().email("Please enter a valid email!"),
+    location: z.string().min(1, "Please enter your location!"),
+    password: z.string().min(6, "Must be at least 6 characters!"),
+    confirm_password: z.string().min(6, "Must be at least 6 characters!"),
+    bloodType: z.string().min(1, "Please select a blood group!"),
+    age: z.preprocess(
+      (val) => Number(val),
+      z.number().min(1, "Please enter your age!")
+    ),
+    lastDonationDate: z.date({
+      message: "Provide a valid last Donation Date",
+    }),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: "Passwords do not match",
+    path: ["confirm_password"],
+  });
 
 const RegisterPage = () => {
   const [imageUrl, setImageUrl] = useState<null | string>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const router = useRouter();
 
   const defaultValues = {
@@ -155,20 +176,58 @@ const RegisterPage = () => {
             <Grid item xs={12} md={6}>
               <REInput name="email" label="Email" />
             </Grid>
-            <Grid item xs={12} sm={12} md={6}>
-              <REInput
-                label="Password"
-                type="password"
-                fullWidth={true}
-                name="password"
-              />
-            </Grid>
             <Grid item xs={12} md={6}>
               <RESelectField
                 items={BloodType}
                 name="bloodType"
                 label="Blood Group"
                 sx={{ mt: 0.5 }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <REInput
+                label="Password"
+                type={showPassword ? "text" : "password"}
+                fullWidth={true}
+                name="password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <REInput
+                label="Confirm Password"
+                type={showConfirmPassword ? "text" : "password"}
+                fullWidth={true}
+                name="confirm_password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                        edge="end"
+                      >
+                        {showConfirmPassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -183,7 +242,7 @@ const RegisterPage = () => {
                 label="Last Donation Date"
               />
             </Grid>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={6}>
               <REFileUploader
                 name="file"
                 onFileUpload={handleFileUpload}
