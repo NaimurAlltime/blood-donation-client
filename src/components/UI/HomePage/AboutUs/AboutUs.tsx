@@ -1,5 +1,6 @@
 import { Avatar, Box, Container, Grid, Typography } from "@mui/material";
 import Image from "next/image";
+import OurMission from "./components/OurMission";
 
 const AboutUs = () => {
   interface TeamMember {
@@ -174,6 +175,7 @@ const AboutUs = () => {
             </Grid>
           </Grid>
         </Box>
+        <OurMission />
       </Box>
     </Container>
   );

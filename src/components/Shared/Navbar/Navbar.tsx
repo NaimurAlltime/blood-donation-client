@@ -85,7 +85,13 @@ const Navbar: React.FC = () => {
               >
                 Donor
               </MenuItem>
-              <MenuItem onClick={handleMenuClose}>About Us</MenuItem>
+              <MenuItem
+                component={Link}
+                href="/about-us"
+                onClick={handleMenuClose}
+              >
+                About Us
+              </MenuItem>
               <MenuItem onClick={handleMenuClose}>My Profile</MenuItem>
               <MenuItem onClick={handleMenuClose}>
                 <AuthButton />
@@ -125,7 +131,7 @@ const Navbar: React.FC = () => {
                 </Typography>
                 <Typography
                   component={Link}
-                  href="/about"
+                  href="/about-us"
                   sx={{ textDecoration: "none", color: "inherit" }}
                 >
                   About Us
