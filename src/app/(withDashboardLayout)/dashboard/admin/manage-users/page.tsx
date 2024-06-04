@@ -193,7 +193,7 @@ const ManageUsersPage = () => {
     try {
       const res = await updateStatus({ id, payload: { status } }).unwrap();
 
-      if (res.success) {
+      if (res.id) {
         toast.success("Status updated successfully");
       }
     } catch (error) {
@@ -204,8 +204,8 @@ const ManageUsersPage = () => {
   const handleUpdateRole = async (id: string, status: string) => {
     try {
       const res = await updateRole({ id, payload: { role: status } }).unwrap();
-      console.log(res);
-      if (res.success) {
+      // console.log(res);
+      if (res.id) {
         toast.success("Role updated successfully");
       }
     } catch (error) {

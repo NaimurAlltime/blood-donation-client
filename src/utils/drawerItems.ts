@@ -39,13 +39,13 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           icon: GroupIcon,
         },
         {
-          title: "My Requests",
-          path: `${role}/my-donation-request`,
+          title: "My Blood Request",
+          path: `${role}/my-blood-request`,
           icon: PersonSearchIcon,
         },
         {
-          title: "Received Requests",
-          path: `${role}/donation-request-for-blood`,
+          title: "Requests for Blood to Me",
+          path: `${role}/request-blood-me`,
           icon: BloodtypeIcon,
         }
       );
@@ -58,7 +58,6 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
           path: `${role}`,
           icon: DashboardIcon,
         },
-
         {
           title: "My Blood Request",
           path: `${role}/my-blood-request`,

@@ -31,6 +31,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import RECheckBox from "@/components/Forms/RECheckBox";
 
 // Validation schema for patient registration
 export const ValidationSchema = z
@@ -48,6 +49,9 @@ export const ValidationSchema = z
     ),
     lastDonationDate: z.date({
       message: "Provide a valid last Donation Date",
+    }),
+    availability: z.boolean().refine((value) => value === true, {
+      message: "You must Check mark in blood donate",
     }),
   })
   .refine((data) => data.password === data.confirm_password, {
@@ -67,6 +71,7 @@ const RegisterPage = () => {
     username: "",
     bloodType: "",
     location: "",
+    availability: false,
     password: "",
     age: "",
     lastDonationDate: "",
@@ -82,6 +87,7 @@ const RegisterPage = () => {
       location: values?.location,
       password: values?.password,
       age: Number(values?.age),
+      availability: values?.availability,
       lastDonationDate: dateFormatter.dateToString(values?.lastDonationDate),
       profilePhoto: imageUrl || "",
     };
@@ -249,15 +255,23 @@ const RegisterPage = () => {
                 label="Upload Profile Photo"
               />
             </Grid>
+            <Grid item xs={12} md={6}>
+              <RECheckBox
+                label="Are you available for donate?"
+                name="availability"
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography component="p" fontWeight={300} mt={1}>
+                Do you already have an account?{" "}
+                <Link href="/login">
+                  <Box component="span" color="primary.main">
+                    Login Now
+                  </Box>
+                </Link>
+              </Typography>
+            </Grid>
           </Grid>
-          <Typography component="p" fontWeight={300} mt={1}>
-            Do you already have an account?{" "}
-            <Link href="/login">
-              <Box component="span" color="primary.main">
-                Login Now
-              </Box>
-            </Link>
-          </Typography>
           <Stack justifyContent="center" my={4}>
             <Button type="submit" variant="contained" fullWidth>
               Register

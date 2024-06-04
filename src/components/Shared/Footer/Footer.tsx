@@ -54,9 +54,9 @@ const Footer = () => {
           <Grid item xs={12} md={4}>
             <Stack direction="column" gap={2} alignItems="center">
               <Typography color="#fff" component={Link} href="/consultation">
-                About Us
+                Contact Us
               </Typography>
-              <Typography color="#fff">naimur22315@gmail.com</Typography>
+              <Typography color="#fff">bloodbank62@gmail.com</Typography>
               <Typography color="#fff">01953538308</Typography>
             </Stack>
           </Grid>

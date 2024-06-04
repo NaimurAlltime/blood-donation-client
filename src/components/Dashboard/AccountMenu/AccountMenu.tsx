@@ -107,7 +107,12 @@ export default function AccountMenu({ color }: { color: string }) {
                 sx={{
                   "&::after": {
                     content: '""',
-
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    borderRadius: "50%",
                     animation: `${pulse} 2s infinite`,
                   },
                 }}
