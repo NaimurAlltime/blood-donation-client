@@ -32,6 +32,14 @@ const donorApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.request],
     }),
 
+    getMyBloodRequests: build.query({
+      query: () => ({
+        url: "/donation-request",
+        method: "GET",
+      }),
+      providesTags: [tagTypes.request],
+    }),
+
     bloodRequestToMe: build.query({
       query: () => ({
         url: `/my-donation-request`,
@@ -70,6 +78,7 @@ const donorApi = baseApi.injectEndpoints({
 export const {
   useGetAllDonorQuery,
   useCreateBloodRequestMutation,
+  useGetMyBloodRequestsQuery,
   useBloodRequestToMeQuery,
   useUpdateMyBloodRequestStatusMutation,
   useGetMyProfileQuery,
