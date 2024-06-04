@@ -15,6 +15,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonIcon from "@mui/icons-material/Person";
 import { keyframes } from "@emotion/react";
 import { getUserInfo, removeUser } from "@/services/auth.services";
+import { useGetSingleUserQuery } from "@/redux/api/authApi";
 
 const pulse = keyframes`
   0% {
@@ -60,6 +61,9 @@ export default function AccountMenu({ color }: { color: string }) {
   const open = Boolean(anchorEl);
   const router = useRouter();
 
+  const { data } = useGetSingleUserQuery({});
+  // console.log(data);
+
   const [userRole, setUserRole] = React.useState("");
   React.useEffect(() => {
     const { role } = getUserInfo() as any;
@@ -97,53 +101,42 @@ export default function AccountMenu({ color }: { color: string }) {
             },
           }}
         >
-          {/* <IconButton
-            onClick={handleClick}
-            aria-controls={open ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            //   size='small'
-            sx={{
-              background: "#ffffff",
-              "& svg": {
-                color: "primary.main",
-              },
-            }}
-          >
-            <KeyboardArrowDownIcon />
-          </IconButton> */}
           <IconButton onClick={handleClick} sx={{ p: 0 }}>
-            {/* <Box
-              sx={{
-                border: `3px solid ${color}`,
-                borderRadius: "50%",
-                padding: "6px 6px 8px 10px",
-              }}
-            >
-              <Image alt="Remy Sharp" src={userLogo} height={25} width={25} />
-            </Box> */}
+            {data?.userProfile?.profilePhoto ? (
+              <Box
+                sx={{
+                  "&::after": {
+                    content: '""',
 
-            <Box
-              sx={{
-                border: `3px solid white`,
-                borderRadius: "50%",
-                padding: "6px 6px 8px 10px",
-                display: "inline-block",
-                position: "relative",
-                "&::after": {
-                  content: '""',
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
+                    animation: `${pulse} 2s infinite`,
+                  },
+                }}
+              >
+                <Avatar alt={data.name} src={data?.userProfile?.profilePhoto} />
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  border: `3px solid white`,
                   borderRadius: "50%",
-                  animation: `${pulse} 2s infinite`,
-                },
-              }}
-            >
-              <Image alt="Remy Sharp" src={userLogo} height={25} width={25} />
-            </Box>
+                  padding: "6px 6px 8px 10px",
+                  display: "inline-block",
+                  position: "relative",
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    borderRadius: "50%",
+                    animation: `${pulse} 2s infinite`,
+                  },
+                }}
+              >
+                <Image alt="Remy Sharp" src={userLogo} height={25} width={25} />
+              </Box>
+            )}
           </IconButton>
         </Tooltip>
       </Box>

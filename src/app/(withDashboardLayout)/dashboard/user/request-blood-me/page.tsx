@@ -85,14 +85,6 @@ const columns: GridColDef[] = [
       };
 
       return (
-        // <IconButton
-        //   size="small"
-        //   onClick={viewContactDetails}
-        //   color="primary"
-        //   disabled={row.requestStatus !== "APPROVED"}
-        // >
-        //   <VisibilityIcon />
-        // </IconButton>
         <Button
           size="small"
           variant="outlined"

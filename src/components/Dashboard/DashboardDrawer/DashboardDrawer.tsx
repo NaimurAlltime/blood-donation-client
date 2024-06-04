@@ -13,6 +13,7 @@ import SideBar from "../SideBar/SideBar";
 import { Avatar, Badge, Stack } from "@mui/material";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import AccountMenu from "../AccountMenu/AccountMenu";
+import { useGetSingleUserQuery } from "@/redux/api/authApi";
 
 const drawerWidth = 240;
 
@@ -39,7 +40,7 @@ export default function DashboardDrawer({
     }
   };
 
-  // const { data, isLoading } = useGetSingleUserQuery({});
+  const { data } = useGetSingleUserQuery({});
   // console.log(data);
 
   return (
@@ -83,8 +84,7 @@ export default function DashboardDrawer({
                 component="div"
                 sx={{ color: "rgba(11, 17, 52, 0.6)" }}
               >
-                {/* Hi, {isLoading ? "Loading..." : data?.name}, */}
-                Hi Naimur Rahman
+                Hi, {data?.name},
               </Typography>
               <Typography
                 variant="h6"
