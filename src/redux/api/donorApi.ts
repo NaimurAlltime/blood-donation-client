@@ -56,6 +56,14 @@ const donorApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.user],
     }),
+
+    getSingleDonor: build.query({
+      query: (id) => ({
+        url: `/donor-list/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.donor],
+    }),
   }),
 });
 
@@ -65,4 +73,5 @@ export const {
   useBloodRequestToMeQuery,
   useUpdateMyBloodRequestStatusMutation,
   useGetMyProfileQuery,
+  useGetSingleDonorQuery,
 } = donorApi;

@@ -144,10 +144,10 @@ const BloodRequestPage = () => {
   };
 
   const rows = data?.map((row: any) => ({
-    id: row.id,
-    name: row.requester.name,
-    bloodType: row.requester.bloodType,
-    requestStatus: row.requestStatus,
+    id: row?.id,
+    name: row?.requester?.name,
+    bloodType: row?.requester?.bloodType,
+    requestStatus: row?.requestStatus,
     handleUpdateStatus: handleUpdateStatus,
   }));
 
