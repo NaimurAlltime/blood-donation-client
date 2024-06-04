@@ -6,10 +6,10 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import { useEffect, useState } from "react";
-import { useGetRequestsMadeByMeQuery } from "@/redux/api/requestApi";
+import { useBloodRequestToMeQuery } from "@/redux/api/donorApi";
 
 const MyDonationRequestPage = () => {
-  const { data, isLoading } = useGetRequestsMadeByMeQuery({});
+  const { data, isLoading } = useBloodRequestToMeQuery({});
   const [allRequest, setAllRequest] = useState<any>([]);
 
   console.log(data);
@@ -23,7 +23,7 @@ const MyDonationRequestPage = () => {
         hospitalAddress: request?.hospitalAddress,
         reason: request?.reason,
         requestStatus: request?.requestStatus,
-        name: request?.donor?.name,
+        name: request?.requester?.name,
       };
     });
     setAllRequest(updateData);
@@ -31,24 +31,6 @@ const MyDonationRequestPage = () => {
 
   const columns: GridColDef[] = [
     { field: "sl", headerName: "SL" },
-    // {
-    //   field: "name",
-    //   headerName: "Donor Name",
-    //   flex: 1,
-    //   renderCell: ({ row }) => {
-    //     return (
-    //       <Box
-    //         sx={{
-    //           height: "100%",
-    //           display: "flex",
-    //           alignItems: "center",
-    //         }}
-    //       >
-    //         <Typography>{formatBloodType(row.donor.name)}</Typography>
-    //       </Box>
-    //     );
-    //   },
-    // },
     { field: "name", headerName: "Donor Name", flex: 1 },
     { field: "hospitalName", headerName: "Hospital Name", flex: 1 },
     { field: "hospitalAddress", headerName: "Hospital Address", flex: 1 },
