@@ -34,7 +34,7 @@ const donorApi = baseApi.injectEndpoints({
 
     bloodRequestToMe: build.query({
       query: () => ({
-        url: `/donation-request`,
+        url: `/my-donation-request`,
         method: "GET",
       }),
       providesTags: [tagTypes.request],
