@@ -4,6 +4,7 @@ import CampaignGallery from "@/components/UI/HomePage/CampaignGallery/CampaignGa
 import CoverageArea from "@/components/UI/HomePage/CoverageArea/CoverageArea";
 import DonationProcess from "@/components/UI/HomePage/DonationProcess/DonationProcess";
 import HeroSection from "@/components/UI/HomePage/HeroSection/HeroSection";
+import SuccessStories from "@/components/UI/HomePage/SuccessStories/SuccessStories";
 
 const HomePage = () => {
   return (
@@ -13,6 +14,7 @@ const HomePage = () => {
       <BloodDonor />
       <CoverageArea />
       <DonationProcess />
+      <SuccessStories />
       <CampaignGallery />
     </>
   );
