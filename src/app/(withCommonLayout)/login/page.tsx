@@ -33,7 +33,7 @@ const LoginPage = () => {
       if (res?.data?.token) {
         toast.success(res?.message);
         storeUserInfo({ token: res.data.token });
-        router.push("/dashboard");
+        // router.push("/dashboard");
       } else {
         // Handle the case where res.data or res.data.token is undefined
         const errorMsg = res?.message || "An error occurred during login.";
@@ -100,7 +100,7 @@ const LoginPage = () => {
               }}
             >
               <Grid container spacing={2} my={1}>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                   <REInput
                     name="usernameOrEmail"
                     label="Username OR Email"
@@ -108,7 +108,7 @@ const LoginPage = () => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                   <REInput
                     name="password"
                     label="Password"

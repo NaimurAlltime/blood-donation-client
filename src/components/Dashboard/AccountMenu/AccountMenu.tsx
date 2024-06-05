@@ -16,6 +16,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { keyframes } from "@emotion/react";
 import { getUserInfo, removeUser } from "@/services/auth.services";
 import { useGetSingleUserQuery } from "@/redux/api/authApi";
+import { logout } from "@/services/actions/logout";
 
 const pulse = keyframes`
   0% {
@@ -69,6 +70,12 @@ export default function AccountMenu({ color }: { color: string }) {
     const { role } = getUserInfo() as any;
     setUserRole(role);
   }, []);
+
+  const handleLogOut = () => {
+    removeUser();
+    logout();
+    router.refresh();
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -197,7 +204,12 @@ export default function AccountMenu({ color }: { color: string }) {
             <Box>
               <Logout sx={{ color: "error.main", mr: "5px" }} />
             </Box>
-            <Box sx={{ width: "50%", fontWeight: 600, mt: "2px" }}>Logout</Box>
+            <Box
+              onClick={handleLogOut}
+              sx={{ width: "50%", fontWeight: 600, mt: "2px" }}
+            >
+              Logout
+            </Box>
           </MenuItem>
         </Box>
       </Menu>

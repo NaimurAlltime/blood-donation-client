@@ -105,7 +105,7 @@ const RegisterPage = () => {
         });
         if (result?.data?.token) {
           storeUserInfo({ token: result?.data?.token });
-          router.push("/dashboard");
+          // router.push("/dashboard");
         }
       }
     } catch (err: any) {
