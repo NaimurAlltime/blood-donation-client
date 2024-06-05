@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const authRoutes = ["/login", "/register"];
 const commonPrivateRoutes = [
   "/dashboard",
   "/dashboard/profile",
@@ -14,10 +13,6 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = cookies().get("token")?.value;
 
-  if (token && authRoutes.includes(pathname)) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-
   if (
     token &&
     (commonPrivateRoutes.includes(pathname) ||
@@ -27,11 +22,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (!token) {
-    if (authRoutes.includes(pathname)) {
-      return NextResponse.next();
-    } else {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   const decodedToken = jwtDecode(token) as { role: string };
@@ -48,10 +39,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/login",
-    "/register",
-    "/dashboard/:page*",
-    "/blood-request/:page*",
-  ],
+  matcher: ["/dashboard/:page*", "/blood-request/:page*"],
 };
