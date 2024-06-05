@@ -17,7 +17,6 @@ import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useMediaQuery, useTheme } from "@mui/material";
-import { getUserInfo } from "@/services/auth.services";
 
 const Navbar: React.FC = () => {
   const AuthButton = dynamic(
@@ -27,8 +26,6 @@ const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
-  const userInfo = getUserInfo();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -96,15 +93,13 @@ const Navbar: React.FC = () => {
               >
                 About Us
               </MenuItem>
-              {userInfo?.id && (
-                <MenuItem
-                  component={Link}
-                  href="//dashboard/profile"
-                  onClick={handleMenuClose}
-                >
-                  My Profile
-                </MenuItem>
-              )}
+              <MenuItem
+                component={Link}
+                href="//dashboard/profile"
+                onClick={handleMenuClose}
+              >
+                My Profile
+              </MenuItem>
               <MenuItem onClick={handleMenuClose}>
                 <AuthButton />
               </MenuItem>
@@ -148,15 +143,13 @@ const Navbar: React.FC = () => {
                 >
                   About Us
                 </Typography>
-                {userInfo?.id && (
-                  <Typography
-                    component={Link}
-                    href="/dashboard/profile"
-                    sx={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    My Profile
-                  </Typography>
-                )}
+                <Typography
+                  component={Link}
+                  href="/dashboard/profile"
+                  sx={{ textDecoration: "none", color: "inherit" }}
+                >
+                  My Profile
+                </Typography>
               </Stack>
             </Grid>
             <Grid item>

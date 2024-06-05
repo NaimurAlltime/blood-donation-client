@@ -1,63 +1,95 @@
-import React from "react";
+"use client";
+
 import {
   Box,
+  Card,
+  CardContent,
   Container,
-  Typography,
   Grid,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Paper,
+  Typography,
 } from "@mui/material";
-import { LocationOn as LocationOnIcon } from "@mui/icons-material";
+import Location from "@/assets/location.png";
+import Image from "next/image";
 
-// Sample data representing areas covered
-const coveredAreas = [
-  { name: "Area 1", donorsAvailable: true },
-  { name: "Area 2", donorsAvailable: false },
-  { name: "Area 3", donorsAvailable: true },
-  // Add more data as needed
+const coverageAreaList = [
+  {
+    id: 1,
+    name: "Dhaka",
+    image: Location,
+  },
+  {
+    id: 2,
+    name: "Gazipur",
+    image: Location,
+  },
+  {
+    id: 3,
+    name: "Rangpur",
+    image: Location,
+  },
+  {
+    id: 4,
+    name: "Barishal",
+    image: Location,
+  },
+  {
+    id: 5,
+    name: "Bogura",
+    image: Location,
+  },
+  {
+    id: 6,
+    name: "Borguna",
+    image: Location,
+  },
 ];
 
 const CoverageArea = () => {
   return (
-    <Box bgcolor="#f5f5f5" py={5}>
-      <Container>
-        <Typography variant="h4" align="center" gutterBottom>
+    <Container>
+      {/* Header section  */}
+      <Box mt={12} textAlign={"center"}>
+        <Typography
+          component="p"
+          fontSize={28}
+          fontWeight={500}
+          color="#1586FD"
+          sx={{ mb: 2 }}
+        >
           Coverage Area
         </Typography>
-        <Grid container spacing={3}>
-          {/* Map Section */}
-          <Grid item xs={12} md={6}>
-            <Paper elevation={3} sx={{ height: "400px" }}>
-              {/* Include your map component here */}
-              {/* Example: <Map /> */}
-              <Box textAlign="center" pt={2}>
-                <Typography variant="subtitle1">Map View</Typography>
-              </Box>
-            </Paper>
+        <Typography component="p" fontSize={18} fontWeight={400} sx={{ mt: 2 }}>
+          Our blood donation services cover a wide range of areas to ensure that
+          life-saving blood
+        </Typography>
+        <Typography component="p" fontSize={18} fontWeight={400}>
+          is available to those in need. We are dedicated to reaching as many
+          communities as possible.
+        </Typography>
+        <Typography component="p" fontSize={18} fontWeight={400}>
+          Below are the primary areas we serve:
+        </Typography>
+      </Box>
+      <Grid container spacing={3}>
+        {coverageAreaList.map((area) => (
+          <Grid key={area.id} item md={4} xs={6} my={1}>
+            <Card>
+              <Image
+                width={200}
+                height={180}
+                src={area.image}
+                alt={area.name}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {area.name}
+                </Typography>
+              </CardContent>
+            </Card>
           </Grid>
-          {/* List Section */}
-          <Grid item xs={12} md={6}>
-            <Paper elevation={3} sx={{ height: "400px", overflow: "auto" }}>
-              <List>
-                {coveredAreas.map((area, index) => (
-                  <ListItem key={index}>
-                    <ListItemIcon>
-                      <LocationOnIcon
-                        color={area.donorsAvailable ? "primary" : "disabled"}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary={area.name} />
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 
