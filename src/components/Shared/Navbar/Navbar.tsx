@@ -40,8 +40,6 @@ const Navbar: React.FC = () => {
     fetchUserInfo();
   }, []);
 
-  console.log("L", userInfo);
-
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
