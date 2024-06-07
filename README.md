@@ -31,7 +31,7 @@ The Blood Donation website is a user-centric platform designed to facilitate blo
 - Admin
 
   - email: jahid@gmail.com
-  - username: jahid123
+  - username: Jahid123
   - password: 123456
 
 - User1
@@ -43,7 +43,7 @@ The Blood Donation website is a user-centric platform designed to facilitate blo
   - User2
 
   - email: sabbir@gmail.com
-  - username: sabbir123
+  - username: Sabiir123
   - password: 123456
 
 ### Installation locally
