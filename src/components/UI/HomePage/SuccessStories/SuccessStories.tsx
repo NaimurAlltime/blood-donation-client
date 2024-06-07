@@ -44,9 +44,9 @@ const SuccessStories = ({ sx }: { sx?: SxProps }) => {
                       lineHeight: 1.1,
                     }}
                   >
-                    I donated blood for the first time in my life. I didn't have
-                    any clear idea about the procedure or what I was expected to
-                    do or in what way
+                    I donated blood for the first time in my life. I did not
+                    have any clear idea about the procedure or what I was
+                    expected to do or in what way
                   </Typography>
                 </CardContent>
               </Card>

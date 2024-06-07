@@ -25,7 +25,7 @@ const HeroSection = () => {
             </Typography>
             <Typography sx={{ my: 4 }}>
               Be a lifesaver! Join our blood donation community, where every
-              drop counts towards saving lives. Together, let's make a
+              drop counts towards saving lives. Together, let is make a
               difference and ensure a healthier future for all. Donate today,
               save lives tomorrow!
             </Typography>

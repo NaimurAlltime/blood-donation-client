@@ -1,4 +1,5 @@
 "use client";
+import AccountMenu from "@/components/Dashboard/AccountMenu/AccountMenu";
 import { logout } from "@/services/actions/logout";
 import { getUserInfo, removeUser } from "@/services/auth.services";
 import { Button } from "@mui/material";
@@ -13,14 +14,16 @@ const AuthButton = () => {
   const handleLogOut = () => {
     removeUser();
     logout();
-    router.refresh();
+    // router.refresh();
+    router.prefetch("/");
   };
   return (
     <>
       {userInfo?.id ? (
-        <Button color="error" onClick={handleLogOut}>
-          Logout
-        </Button>
+        // <Button color="error" onClick={handleLogOut}>
+        //   Logout
+        // </Button>
+        <AccountMenu color="primary.main" />
       ) : (
         <Button component={Link} href="/login">
           Login

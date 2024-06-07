@@ -9,21 +9,19 @@ import { storeUserInfo } from "@/services/auth.services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import REInput from "@/components/Forms/REInput";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import REForm from "@/components/Forms/REForm";
-
-export const validationSchema = z.object({
-  usernameOrEmail: z
-    .string()
-    .min(1, "Please enter a valid Username or Email address!"),
-  password: z.string().min(6, "Must be at least 6 characters"),
-});
+import { validationSchema } from "@/validation/loginvalidationSchema";
 
 const LoginPage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
+
+  const defaultValues = {
+    usernameOrEmail: "",
+    password: "",
+  };
 
   const handleLogin = async (values: FieldValues) => {
     try {
@@ -34,6 +32,7 @@ const LoginPage = () => {
         toast.success(res?.message);
         storeUserInfo({ token: res.data.token });
         // router.push("/dashboard");
+        router.refresh();
       } else {
         // Handle the case where res.data or res.data.token is undefined
         const errorMsg = res?.message || "An error occurred during login.";
@@ -94,10 +93,7 @@ const LoginPage = () => {
             <REForm
               onSubmit={handleLogin}
               resolver={zodResolver(validationSchema)}
-              defaultValues={{
-                usernameOrEmail: "",
-                password: "",
-              }}
+              defaultValues={defaultValues}
             >
               <Grid container spacing={2} my={1}>
                 <Grid item xs={12} md={6}>

@@ -94,6 +94,10 @@ export default function AccountMenu({ color }: { color: string }) {
     router.push(`/dashboard/${userRole}`);
   };
 
+  const openProfile = () => {
+    router.push("/dashboard/profile");
+  };
+
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -166,7 +170,7 @@ export default function AccountMenu({ color }: { color: string }) {
       >
         <Box sx={{ paddingX: "2px" }}>
           <MenuItem
-            onClick={handleClose}
+            onClick={openProfile}
             sx={{
               width: "160px",
             }}
@@ -176,7 +180,9 @@ export default function AccountMenu({ color }: { color: string }) {
                 sx={{ background: "transparent", color: "black", mr: "5px" }}
               />
             </Box>
-            <Box sx={{ width: "50%", fontWeight: 600, mt: "2px" }}>Profile</Box>
+            <Box sx={{ width: "50%", fontWeight: 600, mt: "2px" }}>
+              My Profile
+            </Box>
           </MenuItem>
           <Divider />
           <MenuItem
