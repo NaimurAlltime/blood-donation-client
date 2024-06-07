@@ -30,12 +30,21 @@ The Blood Donation website is a user-centric platform designed to facilitate blo
 
 - Admin
 
-  - username: admin
-  - password: pass123
+  - email: jahid@gmail.com
+  - username: jahid123
+  - password: 123456
 
-- User
-  - username: user
-  - password: pass123
+- User1
+
+  - email: ashikur@gmail.com
+  - username: ashikur123
+  - password: 123456
+
+  - User2
+
+  - email: sabbir@gmail.com
+  - username: sabbir123
+  - password: 123456
 
 ### Installation locally
 
