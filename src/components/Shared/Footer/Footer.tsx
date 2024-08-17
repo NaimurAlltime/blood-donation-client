@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { Box, Container, Stack, Typography, Grid, Link as MuiLink } from "@mui/material";
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -48,7 +49,7 @@ const Footer = () => {
             <Stack direction="column" spacing={1} alignItems="start">
               <Typography variant="h6" color={whiteColor}>Quick Links
               </Typography>
-              <MuiLink href="/" color={whiteColor} underline="none"><ArrowRightIcon /> Home</MuiLink>
+              <MuiLink href="/" color={whiteColor} underline="none"><ArrowRightIcon />Home</MuiLink>
               <MuiLink href="/donnr" color={whiteColor} underline="none"><ArrowRightIcon />Donor</MuiLink>  
               <MuiLink href="/about" color={whiteColor} underline="none"><ArrowRightIcon />About Us</MuiLink>
             </Stack>
