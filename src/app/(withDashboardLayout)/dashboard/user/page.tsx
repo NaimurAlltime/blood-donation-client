@@ -10,6 +10,11 @@ import { CalendarToday as CalendarIcon } from '@mui/icons-material';
 import { Public as GlobeIcon } from '@mui/icons-material';
 import { CardComponent } from '@/components/Dashboard/DashboardOverview/CardComponent';
 import BloodtypeIcon from "@mui/icons-material/Bloodtype";
+import { BloodRequestChart } from '@/components/Dashboard/DashboardOverview/BloodRequestChert';
+
+const mockChartSeries = [
+  { name: 'Requests', data: [30, 40, 45, 50, 49, 60, 70, 91, 125, 100, 80, 60] },
+];
 
 const Dashboard = () => {
   return (
@@ -18,7 +23,7 @@ const Dashboard = () => {
         <Grid item xs={12} sm={6} md={3}>
           <CardComponent
             title="Total Donation"
-            value="56"
+            value="256"
             diff={12}
             trend="up"
             icon={<BloodtypeIcon fontSize="inherit" />}
@@ -59,6 +64,9 @@ const Dashboard = () => {
             sx={{ bgcolor: 'background.paper', boxShadow: 3 }}
           />
         </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <BloodRequestChart chartSeries={mockChartSeries} sx={{ mt: 3 }} />
       </Grid>
     </Box>
   );
