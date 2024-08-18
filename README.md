@@ -1,4 +1,4 @@
-# Blood Aid Network (Client)
+# Blood Donation (Client)
 
 The Blood Donation website is a user-centric platform designed to facilitate blood donations by connecting donors with recipients. It includes features for searching and filtering donors, detailed donor profiles, user account management, and administrative tools for overseeing site activity and user accounts. The aim is to promote and streamline the process of blood donation, ensuring that those in need can easily find willing donors and that the donation process is secure, efficient, and user-friendly.
 

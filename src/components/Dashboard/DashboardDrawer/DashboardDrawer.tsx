@@ -90,7 +90,9 @@ export default function DashboardDrawer({
                 variant="h6"
                 noWrap
                 component="div"
-                sx={{ color: "primary.main" }}
+                sx={{ color: "primary.main",
+                  display: { xs: 'none', sm: 'block' }
+                 }}
               >
                 Welcome to Blood Donation Dashboard!
               </Typography>
