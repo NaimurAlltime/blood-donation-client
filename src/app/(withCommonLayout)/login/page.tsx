@@ -19,8 +19,8 @@ const LoginPage = () => {
   const [error, setError] = useState("");
 
   const defaultValues = {
-    usernameOrEmail: "",
-    password: "",
+    usernameOrEmail: "ashikur123",
+    password: "123456",
   };
 
   const handleLogin = async (values: FieldValues) => {
